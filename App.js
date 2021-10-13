@@ -1,7 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-
+import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -27,7 +26,7 @@ const TrackList = () => {
 };
 
 export default function App() {
-  const [isSignedIn, setIsSignedIn] = useState(true);
+  const [isSignedIn, setIsSignedIn] = useState(false);
   return (
     <NavigationContainer>
       {isSignedIn ? (
@@ -38,7 +37,11 @@ export default function App() {
         </Tab.Navigator>
       ) : (
         <Stack.Navigator>
-          <Stack.Screen name="Signup" component={SignupScreen} />
+          <Stack.Screen
+            name="Signup"
+            component={SignupScreen}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen name="Signin" component={SigninScreen} />
         </Stack.Navigator>
       )}
