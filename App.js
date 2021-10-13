@@ -1,5 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { StyleSheet, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -13,6 +12,7 @@ import TrackDetailScreen from "./src/screens/TrackDetailScreen";
 import TrackListScreen from "./src/screens/TrackListScreen";
 
 import { AuthProvider } from "./src/context/AuthContext";
+import AuthContext from "./src/context/AuthContext";
 
 const Stack = createNativeStackNavigator();
 const TrackListStack = createNativeStackNavigator();
@@ -28,10 +28,10 @@ const TrackList = () => {
 };
 
 const App = () => {
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const { state } = useContext(AuthContext);
   return (
     <NavigationContainer>
-      {isSignedIn ? (
+      {state.token ? (
         <Tab.Navigator>
           <Tab.Screen name="Account" component={AccountScreen} />
           <Tab.Screen name="TrackCreate" component={TrackCreateScreen} />
