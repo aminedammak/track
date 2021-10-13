@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -11,6 +11,8 @@ import SignupScreen from "./src/screens/SignupScreen";
 import TrackCreateScreen from "./src/screens/TrackCreateScreen";
 import TrackDetailScreen from "./src/screens/TrackDetailScreen";
 import TrackListScreen from "./src/screens/TrackListScreen";
+
+import { AuthProvider } from "./src/context/AuthContext";
 
 const Stack = createNativeStackNavigator();
 const TrackListStack = createNativeStackNavigator();
@@ -25,7 +27,7 @@ const TrackList = () => {
   );
 };
 
-export default function App() {
+const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
   return (
     <NavigationContainer>
@@ -47,7 +49,15 @@ export default function App() {
       )}
     </NavigationContainer>
   );
-}
+};
+
+export default () => {
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
