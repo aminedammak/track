@@ -1,21 +1,56 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+import AccountScreen from "./src/screens/AccountScreen";
+import SigninScreen from "./src/screens/SigninScreen";
+import SignupScreen from "./src/screens/SignupScreen";
+import TrackCreateScreen from "./src/screens/TrackCreateScreen";
+import TrackDetailScreen from "./src/screens/TrackDetailScreen";
+import TrackListScreen from "./src/screens/TrackListScreen";
+
+const Stack = createNativeStackNavigator();
+const TrackListStack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const TrackList = () => {
+  return (
+    <TrackListStack.Navigator>
+      <TrackListStack.Screen name="TrackList" component={TrackListScreen} />
+      <TrackListStack.Screen name="TrackDetail" component={TrackDetailScreen} />
+    </TrackListStack.Navigator>
+  );
+};
 
 export default function App() {
+  const [isSignedIn, setIsSignedIn] = useState(true);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      {isSignedIn ? (
+        <Tab.Navigator>
+          <Tab.Screen name="Account" component={AccountScreen} />
+          <Tab.Screen name="TrackCreate" component={TrackCreateScreen} />
+          <Tab.Screen name="Track" component={TrackList} />
+        </Tab.Navigator>
+      ) : (
+        <Stack.Navigator>
+          <Stack.Screen name="Signup" component={SignupScreen} />
+          <Stack.Screen name="Signin" component={SigninScreen} />
+        </Stack.Navigator>
+      )}
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
