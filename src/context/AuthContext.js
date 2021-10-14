@@ -11,6 +11,8 @@ const authReducer = (state, action) => {
     case "signup":
       /* Here no need to preserve the old state */
       return { errorMessage: "", token: action.payload };
+    case "signin":
+      return { errorMessage: "", token: action.payload };
     default:
       return state;
   }
@@ -25,7 +27,7 @@ export const AuthProvider = ({ children }) => {
   const signup = async ({ email, password }) => {
     try {
       const response = await trackerApi.post("/signup", { email, password });
-      //await AsyncStorage.setItem("token", response.data.token);
+      await AsyncStorage.setItem("token", response.data);
       dispatch({ type: "signup", payload: response.data });
     } catch (err) {
       dispatch({
@@ -35,8 +37,21 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const signin = async ({ email, password }) => {
+    try {
+      const response = await trackerApi.post("/signin", { email, password });
+      await AsyncStorage.setItem("token", response.data);
+      dispatch({ type: "signin", payload: response.data });
+    } catch (err) {
+      dispatch({
+        type: "add_error",
+        payload: "Something went wrong with the sign in",
+      });
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ state, signup }}>
+    <AuthContext.Provider value={{ state, signup, signin }}>
       {children}
     </AuthContext.Provider>
   );
