@@ -3,6 +3,7 @@ import { StyleSheet, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import LoadingScreen from "./src/screens/LoadingScreen";
 
@@ -32,30 +33,44 @@ const TrackList = () => {
 const App = () => {
   const { state } = useContext(AuthContext);
   return (
-    <NavigationContainer>
-      {!state.finishLoading ? (
-        <LoadingScreen />
-      ) : state.token ? (
-        <Tab.Navigator>
-          <Tab.Screen name="Account" component={AccountScreen} />
-          <Tab.Screen name="TrackCreate" component={TrackCreateScreen} />
-          <Tab.Screen name="Track" component={TrackList} />
-        </Tab.Navigator>
-      ) : (
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Signup"
-            component={SignupScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Signin"
-            component={SigninScreen}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      )}
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        {!state.finishLoading ? (
+          <LoadingScreen />
+        ) : state.token ? (
+          <Tab.Navigator>
+            <Tab.Screen
+              name="Account"
+              component={AccountScreen}
+              options={{ headerShown: false }}
+            />
+            <Tab.Screen
+              name="TrackCreate"
+              component={TrackCreateScreen}
+              options={{ headerShown: false }}
+            />
+            <Tab.Screen
+              name="Track"
+              component={TrackList}
+              options={{ headerShown: false }}
+            />
+          </Tab.Navigator>
+        ) : (
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Signup"
+              component={SignupScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Signin"
+              component={SigninScreen}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        )}
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 
