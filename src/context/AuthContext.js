@@ -4,7 +4,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const AuthContext = React.createContext();
 
 const authReducer = (state, action) => {
-  console.log("dispatched action", action);
   switch (action.type) {
     case "add_error":
       return { ...state, errorMessage: action.payload };
@@ -15,8 +14,8 @@ const authReducer = (state, action) => {
       return { errorMessage: "", token: action.payload };
     case "clear_error_message":
       return { ...state, errorMessage: "" };
-    case "stop_loading":
-      return { ...state, is_loading: false };
+    case "finish_loading":
+      return { ...state, finishLoading: true };
     case "signout":
       return { errorMessage: "", token: null };
     default:
@@ -28,7 +27,7 @@ export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {
     errorMessage: "",
     token: null,
-    is_loading: true,
+    finishLoading: false,
   });
 
   const clearErrorMessage = () => {
@@ -37,10 +36,11 @@ export const AuthProvider = ({ children }) => {
 
   const tryLocalSignin = async () => {
     const token = await AsyncStorage.getItem("token");
+
     if (token) {
-      dispatch({ type: "stop_loading" });
       dispatch({ type: "signin", payload: token });
     }
+    dispatch({ type: "finish_loading" });
   };
 
   const signup = async ({ email, password }) => {

@@ -33,7 +33,7 @@ const App = () => {
   const { state } = useContext(AuthContext);
   return (
     <NavigationContainer>
-      {state.isLoading ? (
+      {!state.finishLoading ? (
         <LoadingScreen />
       ) : state.token ? (
         <Tab.Navigator>
