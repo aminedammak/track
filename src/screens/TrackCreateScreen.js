@@ -13,6 +13,8 @@ const TrackCreateScreen = () => {
     if (status !== "granted") {
       setError("Permission to access location was denied");
       return;
+    } else {
+      setError(null);
     }
   };
   useEffect(() => {
