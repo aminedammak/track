@@ -1,13 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 import AuthForm from "../components/AuthForm";
 import NavLink from "../components/NavLink";
 import AuthContext from "../context/AuthContext";
 const SignupScreen = () => {
-  const { state, signup, tryLocalSignin } = useContext(AuthContext);
-  useEffect(() => {
-    tryLocalSignin();
-  }, []);
+  const { state, signup } = useContext(AuthContext);
+
   return (
     <View style={styles.container}>
       <AuthForm

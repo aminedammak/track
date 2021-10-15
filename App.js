@@ -4,6 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
+import LoadingScreen from "./src/screens/LoadingScreen";
+
 import AccountScreen from "./src/screens/AccountScreen";
 import SigninScreen from "./src/screens/SigninScreen";
 import SignupScreen from "./src/screens/SignupScreen";
@@ -31,7 +33,9 @@ const App = () => {
   const { state } = useContext(AuthContext);
   return (
     <NavigationContainer>
-      {state.token ? (
+      {state.isLoading ? (
+        <LoadingScreen />
+      ) : state.token ? (
         <Tab.Navigator>
           <Tab.Screen name="Account" component={AccountScreen} />
           <Tab.Screen name="TrackCreate" component={TrackCreateScreen} />

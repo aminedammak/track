@@ -15,6 +15,10 @@ const authReducer = (state, action) => {
       return { errorMessage: "", token: action.payload };
     case "clear_error_message":
       return { ...state, errorMessage: "" };
+    case "stop_loading":
+      return { ...state, is_loading: false };
+    case "signout":
+      return { errorMessage: "", token: null };
     default:
       return state;
   }
@@ -24,6 +28,7 @@ export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {
     errorMessage: "",
     token: null,
+    is_loading: true,
   });
 
   const clearErrorMessage = () => {
@@ -33,6 +38,7 @@ export const AuthProvider = ({ children }) => {
   const tryLocalSignin = async () => {
     const token = await AsyncStorage.getItem("token");
     if (token) {
+      dispatch({ type: "stop_loading" });
       dispatch({ type: "signin", payload: token });
     }
   };
@@ -63,9 +69,21 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const signout = async () => {
+    await AsyncStorage.removeItem("token");
+    dispatch({ type: "signout" });
+  };
+
   return (
     <AuthContext.Provider
-      value={{ state, signup, signin, clearErrorMessage, tryLocalSignin }}
+      value={{
+        state,
+        signup,
+        signin,
+        clearErrorMessage,
+        tryLocalSignin,
+        signout,
+      }}
     >
       {children}
     </AuthContext.Provider>
