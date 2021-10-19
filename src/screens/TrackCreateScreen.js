@@ -9,11 +9,14 @@ import LocationContext from "../context/LocationContext";
 import useLocation from "../hooks/useLocation";
 
 import Map from "../components/Map";
+import TrackForm from "../components/TrackForm";
 
 const TrackCreateScreen = () => {
-  const { addLocation } = useContext(LocationContext);
+  const { addLocation, state } = useContext(LocationContext);
   const [focus, setFocus] = useState(false);
-  const [error] = useLocation(focus, addLocation);
+  const [error] = useLocation(focus, (location) =>
+    addLocation(location, state.recording)
+  );
 
   useFocusEffect(
     React.useCallback(() => {
@@ -27,6 +30,7 @@ const TrackCreateScreen = () => {
       <Text h2>Create a track</Text>
       <Map />
       {error ? <Text>{error}</Text> : null}
+      <TrackForm />
     </SafeAreaView>
   );
 };

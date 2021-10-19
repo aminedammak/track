@@ -5,8 +5,6 @@ import {
   Accuracy,
 } from "expo-location";
 export default (shouldTrack, callback) => {
-  console.log("shouldTrack value", shouldTrack);
-
   const [error, setError] = useState(null);
   const [subscriber, setSubscriber] = useState(null);
   const startWatching = async () => {
