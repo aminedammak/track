@@ -21,7 +21,7 @@ const locationReducer = (state, action) => {
 export const LocationProvider = ({ children }) => {
   const [state, dispatch] = useReducer(locationReducer, {
     name: "",
-    recoding: false,
+    recording: false,
     locations: [],
     currentLocation: null,
   });
