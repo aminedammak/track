@@ -16,8 +16,6 @@ const TrackCreateScreen = () => {
   const [focus, setFocus] = useState(false);
   const callback = useCallback(
     (location) => {
-      console.log("state.recording", state.recording);
-
       addLocation(location, state.recording);
     },
     [state.recording]

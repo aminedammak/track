@@ -10,7 +10,6 @@ const TrackForm = () => {
     stopRecording,
     changeName,
   } = useContext(LocationContext);
-  console.log("location.length", locations.length);
 
   return (
     <>
