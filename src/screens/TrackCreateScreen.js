@@ -12,19 +12,20 @@ import Map from "../components/Map";
 import TrackForm from "../components/TrackForm";
 
 const TrackCreateScreen = () => {
-  const { addLocation, state } = useContext(LocationContext);
-
-  console.log("locations", state.locations.length);
+  const {
+    addLocation,
+    state: { recording, locations },
+  } = useContext(LocationContext);
+  //console.log("locations", locations);
 
   const [focus, setFocus] = useState(false);
-  const [shouldTrack, setShouldTrack] = useState(false);
   const callback = useCallback(
     (location) => {
-      addLocation(location, state.recording);
+      addLocation(location, recording);
     },
-    [state.recording]
+    [recording]
   );
-  const [error] = useLocation(shouldTrack || state.recording, callback);
+  const [error] = useLocation(focus || recording, callback);
 
   useFocusEffect(
     React.useCallback(() => {
