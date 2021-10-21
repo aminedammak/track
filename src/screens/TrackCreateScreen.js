@@ -13,14 +13,18 @@ import TrackForm from "../components/TrackForm";
 
 const TrackCreateScreen = () => {
   const { addLocation, state } = useContext(LocationContext);
+
+  console.log("locations", state.locations.length);
+
   const [focus, setFocus] = useState(false);
+  const [shouldTrack, setShouldTrack] = useState(false);
   const callback = useCallback(
     (location) => {
       addLocation(location, state.recording);
     },
     [state.recording]
   );
-  const [error] = useLocation(focus, callback);
+  const [error] = useLocation(shouldTrack || state.recording, callback);
 
   useFocusEffect(
     React.useCallback(() => {
