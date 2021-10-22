@@ -17,6 +17,7 @@ import TrackListScreen from "./src/screens/TrackListScreen";
 import { AuthProvider } from "./src/context/AuthContext";
 import { LocationProvider } from "./src/context/LocationContext";
 import AuthContext from "./src/context/AuthContext";
+import { TrackProvider } from "./src/context/TrackContext";
 
 const Stack = createNativeStackNavigator();
 const TrackListStack = createNativeStackNavigator();
@@ -77,11 +78,13 @@ const App = () => {
 
 export default () => {
   return (
-    <LocationProvider>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </LocationProvider>
+    <TrackProvider>
+      <LocationProvider>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </LocationProvider>
+    </TrackProvider>
   );
 };
 
