@@ -42,8 +42,8 @@ const App = () => {
         ) : state.token ? (
           <Tab.Navigator>
             <Tab.Screen
-              name="Account"
-              component={AccountScreen}
+              name="Track"
+              component={TrackList}
               options={{ headerShown: false }}
             />
             <Tab.Screen
@@ -52,8 +52,8 @@ const App = () => {
               options={{ headerShown: false }}
             />
             <Tab.Screen
-              name="Track"
-              component={TrackList}
+              name="Account"
+              component={AccountScreen}
               options={{ headerShown: false }}
             />
           </Tab.Navigator>
