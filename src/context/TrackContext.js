@@ -9,6 +9,8 @@ const trackReducer = (state, action) => {
         ...state,
         { name: action.payload.name, locations: action.payload.locations },
       ];
+    case "fetch_tracks":
+      return action.payload;
     default:
       return state;
   }
@@ -22,8 +24,9 @@ export const TrackProvider = ({ children }) => {
     dispatch({ type: "create_track", payload: { name, locations } });
   };
 
-  const fetchTracks = () => {
-    dispatch({ type: "fetch_tracks" });
+  const fetchTracks = async () => {
+    const response = await instance.get("/tracks");
+    dispatch({ type: "fetch_tracks", payload: response.data });
   };
 
   return (
