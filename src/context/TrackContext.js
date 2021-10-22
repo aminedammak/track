@@ -18,8 +18,6 @@ export const TrackProvider = ({ children }) => {
   const [state, dispatch] = useReducer(trackReducer, []);
 
   const createTrack = async (name, locations) => {
-    console.log("createTrack", locations.length);
-
     await instance.post("/tracks", { name, locations });
     dispatch({ type: "create_track", payload: { name, locations } });
   };

@@ -13,6 +13,8 @@ const locationReducer = (state, action) => {
       return { ...state, locations: [...state.locations, action.payload] };
     case "change_name":
       return { ...state, name: action.payload };
+    case "reset":
+      return { ...state, name: "", locations: [] };
     default:
       return state;
   }
@@ -45,6 +47,10 @@ export const LocationProvider = ({ children }) => {
     }
   };
 
+  const reset = () => {
+    dispatch({ type: "reset" });
+  };
+
   return (
     <LocationContext.Provider
       value={{
@@ -53,6 +59,7 @@ export const LocationProvider = ({ children }) => {
         stopRecording,
         addLocation,
         changeName,
+        reset,
       }}
     >
       {children}
