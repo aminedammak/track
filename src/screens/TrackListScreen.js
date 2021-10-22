@@ -7,6 +7,8 @@ const TrackListScreen = ({ navigation }) => {
   const { state, fetchTracks } = useContext(TrackContext);
 
   useEffect(() => {
+    console.log("tracklist on scren");
+
     fetchTracks();
   }, []);
 
@@ -18,8 +20,8 @@ const TrackListScreen = ({ navigation }) => {
         keyExtractor={(track) => track._id}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity>
-              <ListItem key={item._id} bottomDivider>
+            <TouchableOpacity key={item._id}>
+              <ListItem bottomDivider>
                 <ListItem.Content>
                   <ListItem.Title>{item.name}</ListItem.Title>
                 </ListItem.Content>
