@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { FontAwesome } from "@expo/vector-icons";
 
 import LoadingScreen from "./src/screens/LoadingScreen";
 
@@ -48,17 +49,33 @@ const App = () => {
             <Tab.Screen
               name="Track"
               component={TrackList}
-              options={{ headerShown: false }}
+              options={{
+                headerShown: false,
+                tabBarIcon: () => (
+                  <FontAwesome name="th-list" size={24} color="black" />
+                ),
+              }}
             />
             <Tab.Screen
               name="TrackCreate"
               component={TrackCreateScreen}
-              options={{ headerShown: false }}
+              options={{
+                headerShown: false,
+                title: "Add track",
+                tabBarIcon: () => (
+                  <FontAwesome name="plus" size={24} color="black" />
+                ),
+              }}
             />
             <Tab.Screen
               name="Account"
               component={AccountScreen}
-              options={{ headerShown: false }}
+              options={{
+                headerShown: false,
+                tabBarIcon: () => (
+                  <FontAwesome name="gear" size={24} color="black" />
+                ),
+              }}
             />
           </Tab.Navigator>
         ) : (
