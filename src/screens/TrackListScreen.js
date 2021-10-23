@@ -7,14 +7,11 @@ const TrackListScreen = ({ navigation }) => {
   const { state, fetchTracks } = useContext(TrackContext);
 
   useEffect(() => {
-    console.log("tracklist on scren");
-
     fetchTracks();
   }, []);
 
   return (
     <>
-      <Text>tracklist screen</Text>
       <FlatList
         data={state}
         keyExtractor={(track) => track._id}

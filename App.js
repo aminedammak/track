@@ -26,7 +26,11 @@ const Tab = createBottomTabNavigator();
 const TrackList = () => {
   return (
     <TrackListStack.Navigator>
-      <TrackListStack.Screen name="TrackList" component={TrackListScreen} />
+      <TrackListStack.Screen
+        name="TrackList"
+        component={TrackListScreen}
+        options={{ title: "Tracks" }}
+      />
       <TrackListStack.Screen name="TrackDetail" component={TrackDetailScreen} />
     </TrackListStack.Navigator>
   );
